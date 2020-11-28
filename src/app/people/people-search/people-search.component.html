@@ -1,0 +1,64 @@
+
+<div class="container">
+  <div class="p-grid">
+
+    <form autocomplete="off" (ngSubmit)="pesquisar()">
+
+      <div class="p-col-12">
+        <h1>Pessoas</h1>
+      </div>
+      <div class="p-col-12 p-fluid">
+        <label for="">Nome</label>
+        <input pInputText type="text" name="name"
+        [(ngModel)]="filter.name">
+      </div>
+      <div class="p-col-12">
+        <button pButton type="submit" label="Pesquisar"></button>
+      </div>
+    </form>
+  </div>
+
+  <div class="p-grid">
+    <div class="p-col-12">
+
+      <p-table [value]="person" [responsive]="true"
+      [paginator]="true" [rows]="filter.itensPorPagina"
+      emptyMessage="Nenhuma pessoa encontrada"
+      [lazy]="true" [totalRecords]="totalRegistros"
+      (onLazyLoad)="aoMudarPagina($event)"
+      #tabela>
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Nome</th>
+            <th>Cidade</th>
+            <th class="col-date">Estado</th>
+            <th class="col-date">Status</th>
+            <th class="col-actions"></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-person>
+          <tr>
+            <td>{{person.name}}</td>
+            <td>{{person.address.city}}</td>
+            <td class="col-date">{{person.address.state}}</td>
+            <td class="col-date"><a href="" (click)="ativarInativar(person)"
+              [ngStyle]="{color: person.active ? 'blue' : 'red'}"
+              pTooltip="{{person.active ? 'Desativar' : 'Ativar'}}" tooltipPosition="top"
+              >{{person.active ? 'Ativo' : 'Inativo'}}</a></td>
+            <td >
+              <a pButton icon="fa fa-pencil" pTooltip="Editar" tooltipPosition="top"
+                [routerLink]="['/pessoas', person.id]"></a>
+              <button pButton icon="fa fa-trash" pTooltip="Excluir" tooltipPosition="top"
+              (click)="confirmarExclusao(person)"></button>
+
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div class="p-col-12">
+      <a pButton label="Nova Pessoa" routerLink="/pessoas/novo"></a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<div class="container">
+  <form #f="ngForm" autocomplete="off" (ngSubmit)="save(f)">
+    <div class="p-grid">
+      <div class="p-col-12">
+        <h1>{{ editando ? 'Edição de' : 'Nova'}} Pessoa</h1>
+      </div>
+
+      <div class="p-col-12 p-fluid">
+        <label>Nome</label>
+        <input pInputText type="text" name="name" ngModel #name="ngModel" required minlength="5"
+          class="p-mr-2" [(ngModel)]="person.name">
+        <app-message [control]="name" error="minlength" text="Mínimo de {{name.errors?.minlength?.requiredLength}} caracteres"></app-message>
+        <app-message [control]="name" error="required" text="Informe o nome"></app-message>
+      </div>
+
+      <div class="p-col-12 p-md-9 p-fluid">
+        <label>Logradouro</label>
+        <input pInputText type="text" name="street" ngModel #street="ngModel" required
+          class="p-mr-2" [(ngModel)]="person.address.street">
+        <app-message [control]="street" error="required" text="Informe o logradouro"></app-message>
+      </div>
+
+      <div class="p-col-12 p-md-3 p-fluid">
+        <label>Número</label>
+        <p-inputNumber mode="decimal" name="number" ngModel #number="ngModel" required
+        class="p-mr-2" [(ngModel)]="person.address.number"></p-inputNumber>
+        <app-message [control]="number" error="required" text="Informe o número"></app-message>
+      </div>
+
+      <div class="p-col-12 p-md-4 p-fluid">
+        <label>Complemento</label>
+        <input pInputText type="text" name="complement" ngModel #complement="ngModel"
+          class="p-mr-2" [(ngModel)]="person.address.complement">
+      </div>
+
+      <div class="p-col-12 p-md-4 p-fluid">
+        <label>Bairro</label>
+        <input pInputText type="text" name="neighborhood" ngModel #neighborhood="ngModel"
+          required class="p-mr-2" [(ngModel)]="person.address.neighborhood">
+        <app-message [control]="neighborhood" error="required" text="Informe o bairro"></app-message>
+      </div>
+
+      <div class="p-col-12 p-md-4 p-fluid">
+        <label>CEP</label>
+      <p-inputMask mask="99.999-999" ngModel #zip="ngModel" required class="p-mr-2" name="zip"
+          [(ngModel)]="person.address.zip"></p-inputMask>
+        <app-message [control]="zip" error="required" text="Informe o CEP"></app-message>
+      </div>
+
+      <div class="p-col-12 p-md-6 p-fluid">
+        <label>Estado</label>
+        <p-dropdown [options]="states" [filter]="true" placeholder="Selecione"
+          name="state" ngModel #state="ngModel" required class="p-mr-2"
+          [(ngModel)]="estado.id" (ngModelChange)="modo()"></p-dropdown>
+        <app-message [control]="state" error="required" text="Informe o estado"></app-message>
+      </div>
+
+      <div class="p-col-12 p-md-6 p-fluid">
+        <label>Cidade</label>
+        <p-dropdown [options]="cities" [filter]="true" placeholder="Selecione"
+          name="city" ngModel #city="ngModel" required class="p-mr-2"
+          [(ngModel)]="cidade.id"></p-dropdown>
+        <app-message [control]="city" error="required" text="Informe a cidade"></app-message>
+      </div>
+
+      <div class="p-col-12">
+        <button pButton type="submit" label="Salvar" [disabled]="!f.valid"></button>
+        <button pButton type="button" label="Novo" class="p-button-info"
+          (click)="new(f)"></button>
+        <a routerLink="/pessoas">Voltar para a pesquisa</a>
+      </div>
+    </div>
+  </form>
+</div>
