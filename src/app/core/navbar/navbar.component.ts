@@ -21,11 +21,8 @@ export class NavbarComponent implements OnInit {
 
   exibindoMenu = false;
 
-  // public show: boolean = false;
-  // public buttonName: any = 'Show';
 
   ngOnInit() {
-    console.log(this.auth.jwtPayload.name);
   }
 
   logout(){
