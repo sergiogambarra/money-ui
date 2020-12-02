@@ -23,7 +23,10 @@ export function jwtOptionsFactory(tokenService) {
     tokenGetter: () => {
       return tokenService.getAsyncToken();
     },
-    allowedDomains: ['localhost:8080']
+    allowedDomains: [
+      'sergio-money-api.herokuapp.com',
+      'localhost:8080'
+    ]
   };
 }
 
@@ -44,8 +47,14 @@ export function jwtOptionsFactory(tokenService) {
       // },
       config: {
         tokenGetter,
-        allowedDomains: ['localhost:8080'],
-        disallowedRoutes: ['http://localhost:8080/oauth/token'],
+        allowedDomains: [
+          'sergio-money-api.herokuapp.com',
+          'localhost:8080'
+        ],
+        disallowedRoutes: [
+          'https://sergio-money-api.herokuapp.com/oauth/token',
+          'http://localhost:8080/oauth/token'
+        ],
       },
     }),
     SecurityRoutingModule,
