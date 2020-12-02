@@ -4,4 +4,5 @@ export const environment = {
 
   tokenAllowedDomains: [ new RegExp('sergio-money-api.herokuapp.com') ],
   tokenDisallowedRoutes: [ new RegExp('\/oauth\/token') ]
+
 };
